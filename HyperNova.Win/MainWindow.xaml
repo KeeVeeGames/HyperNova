@@ -1,0 +1,88 @@
+﻿<Window x:Class="HyperNova.Win.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HyperNova.Win"
+        xmlns:extensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        mc:Ignorable="d"
+        Title="HyperNova" Width="800" Height="600" MinWidth="400" MinHeight="350"
+        Closing="MainWindow_Closing">
+
+    <Window.Resources>
+        <local:TextValidConverter x:Key="TextValidConverter" />
+    </Window.Resources>
+
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="128"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="64"/>
+            <ColumnDefinition Width="64"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="GMHyper location" Margin="8" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="TextBoxGMHyperLocation" Margin="8" Grid.Column="1" Grid.ColumnSpan="2" TextChanged="TextBoxGMHyperLocation_TextChanged"/>
+        <Button x:Name="ButtonBrowseGMHyperLocation" Content="..." Grid.Column="3" Margin="8" Click="ButtonBrowseGMHyperLocation_Click"/>
+
+        <Rectangle Fill="#FF343442" Margin="6,3" Grid.ColumnSpan="4" Grid.Row="1"/>
+
+        <Label Content="Project name" Margin="8" VerticalContentAlignment="Center" Grid.Row="2"/>
+        <TextBox x:Name="TextBoxProjectName" Margin="8" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" TextChanged="TextBoxTemplate_TextChanged"/>
+        <Button x:Name="ButtonFindLocations" Content="Find locations" Grid.Column="2" Margin="8" Grid.Row="2" Grid.ColumnSpan="2" Click="ButtonFindLocations_Click"/>
+
+        <Label Content="Project location" Margin="8" VerticalContentAlignment="Center" Grid.Row="3"/>
+        <TextBox x:Name="TextBoxProjectLocation" Margin="8" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" TextChanged="TextBoxTemplate_TextChanged"/>
+        <Button x:Name="ButtonBrowseProjectLocation" Content="..." Grid.Column="3" Margin="8" Grid.Row="3" Click="ButtonBrowseProjectLocation_Click"/>
+
+        <Label Content="Cache location" Margin="8" VerticalContentAlignment="Center" Grid.Row="4"/>
+        <TextBox x:Name="TextBoxCacheLocation" Margin="8" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" TextChanged="TextBoxTemplate_TextChanged"/>
+        <Button x:Name="ButtonBrowseCacheLocation" Content="..." Grid.Column="3" Margin="8" Grid.Row="4" Click="ButtonBrowseCacheLocation_Click"/>
+
+        <Label Content="Template" Margin="8" VerticalContentAlignment="Center" Grid.Row="5"/>
+        <ComboBox x:Name="ComboBoxTemplate" Grid.Column="1" Margin="8" Grid.Row="5" ItemsSource="{Binding Templates}" DisplayMemberPath="Name" SelectionChanged="ComboBoxTemplate_SelectionChanged"/>
+        <Button x:Name="ButtonTemplate" Grid.Column="2" Margin="8" Grid.Row="5" Grid.ColumnSpan="2" Click="ButtonTemplate_Click"/>
+
+        <Rectangle Fill="#FF343442" Margin="6,3" Grid.ColumnSpan="4" Grid.Row="6"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="7">
+            <Label Content="Status: " Margin="8,8,0,8" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0"/>
+            <Label x:Name="LabelStatus" Margin="0,8,8,8" VerticalContentAlignment="Center" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0"/>
+        </StackPanel>
+
+        <Button x:Name="ButtonProcess" Grid.Column="2" Margin="8" Grid.Row="7" Grid.ColumnSpan="2" Height="26" Click="ButtonProcess_Click">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource TextValidConverter}">
+                    <Binding ElementName="TextBoxGMHyperLocation" Path="Text"/>
+                    <Binding ElementName="TextBoxProjectName" Path="Text"/>
+                    <Binding ElementName="TextBoxProjectLocation" Path="Text"/>
+                    <Binding ElementName="TextBoxCacheLocation" Path="Text"/>
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+
+        <TextBox x:Name="Console"
+             extensions:CursorSpotlightExtension.RelativeSpotlightSize="0" Background="#FF111419"
+             Text="{Binding Text, Mode=OneWay}"
+             IsReadOnly="True"
+             TextWrapping="Wrap" Grid.Row="8"
+             VerticalContentAlignment="Top" Margin="0,0,0,1" FontFamily="Consolas" Grid.Column="0" Grid.ColumnSpan="4"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+    </Grid>
+</Window>

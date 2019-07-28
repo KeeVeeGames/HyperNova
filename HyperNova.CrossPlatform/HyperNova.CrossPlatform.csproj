@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>netcoreapp2.2;net461</TargetFrameworks>
+    <AssemblyName>HyperNova</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.8.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.8.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <Import Project="..\HyperNova.Shared\HyperNova.Shared.projitems" Label="Shared" />
+</Project>
